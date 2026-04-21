@@ -7,7 +7,7 @@ cp -r ~/.config/hypr        "$DOTFILES/hypr/hypr"
 cp -r ~/.config/nvim        "$DOTFILES/nvim/nvim"
 cp -r ~/.config/fastfetch   "$DOTFILES/fastfetch/fastfetch"
 cp --remove-destination ~/.zshrc    "$DOTFILES/.zshrc.omarchy"
-cp --remove-destination ~/.tmux.conf "$DOTFILES/.tmux.conf"
+cp -r ~/.config/tmux        "$DOTFILES/tmux/tmux"
 
 # Commit and push
 cd "$DOTFILES"
@@ -18,6 +18,7 @@ git push
 # Remove copies (git has them, no need to keep locally)
 rm -rf "$DOTFILES/hypr/hypr"
 rm -rf "$DOTFILES/nvim/nvim"
+rm -rf "$DOTFILES/tmux/tmux"
 rm -rf "$DOTFILES/fastfetch/fastfetch"
 
 echo "Done."
