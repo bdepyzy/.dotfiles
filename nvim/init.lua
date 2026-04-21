@@ -1,3 +1,15 @@
+-- <leader>ff
+-- <leader>fg
+-- <leader>fb
+-- <leader>fh
+-- fuzzy funding above
+-- filebar on side
+-- <leader>e
+-- <leader>r
+--
+-- alt t, gives terminal and removes it
+
+
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
@@ -21,6 +33,8 @@ vim.opt.expandtab = true      -- Use spaces instead of tabs
 vim.opt.shiftwidth = 4        -- Indentation width
 vim.opt.tabstop = 4           -- Tab width
 
+-- Treat underscore as word boundary for w motion
+vim.opt.iskeyword:remove("_")
 
 -- Clear search highlighting
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
@@ -35,6 +49,7 @@ vim.keymap.set("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to upper window"
 vim.keymap.set("n", "<leader>w", "<cmd>w<CR>", { desc = "Save file" })
 vim.keymap.set("n", "<leader>q", "<cmd>q<CR>", { desc = "Quit" })
 vim.keymap.set("n", "<leader>x", "<cmd>x<CR>", { desc = "Save and quit" })
+vim.keymap.set("n", "<leader>Q", "<cmd>qa!<CR>", { desc = "Force quit Neovim" })
 
 -- Buffer management
 vim.keymap.set("n", "<leader>bd", "<cmd>bd<CR>", { desc = "Delete buffer" })
@@ -64,6 +79,13 @@ vim.keymap.set("n", "<leader>sc", "<cmd>close<CR>", { desc = "Close split" })
 -- Terminal keybinds
 vim.keymap.set("n", "<leader>t", "<cmd>terminal<CR>", { desc = "Open terminal" })
 vim.keymap.set("t", "<Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
+vim.keymap.set("t", "jk", "<C-\\><C-n>", { desc = "Exit terminal mode with jk" })
+
+-- Alt+hjkl to navigate windows from terminal mode
+vim.keymap.set("t", "<A-h>", "<C-\\><C-n><C-w>h", { desc = "Move to left window" })
+vim.keymap.set("t", "<A-j>", "<C-\\><C-n><C-w>j", { desc = "Move to below window" })
+vim.keymap.set("t", "<A-k>", "<C-\\><C-n><C-w>k", { desc = "Move to above window" })
+vim.keymap.set("t", "<A-l>", "<C-\\><C-n><C-w>l", { desc = "Move to right window" })
 
 -- Quickfix navigation
 vim.keymap.set("n", "<leader>co", "<cmd>copen<CR>", { desc = "Open quickfix" })
@@ -102,8 +124,52 @@ vim.keymap.set("n", "<leader>lw", function()
   print("Line wrap " .. (vim.opt.wrap:get() and "enabled" or "disabled"))
 end, { desc = "Toggle line wrap" })
 
+vim.keymap.set("n", "<leader>k", function()
+  vim.diagnostic.open_float()
+end, { desc = "Show line diagnostics" })
+
+-- Folding keybinds
+vim.keymap.set("n", "zc", "zc", { desc = "Close fold" })
+vim.keymap.set("n", "zo", "zo", { desc = "Open fold" })
+vim.keymap.set("n", "za", "za", { desc = "Toggle fold" })
+vim.keymap.set("n", "zR", "zR", { desc = "Open all folds" })
+vim.keymap.set("n", "zM", "zM", { desc = "Close all folds" })
+
 -- Quick config reload
 vim.keymap.set("n", "<leader>cr", "<cmd>source $MYVIMRC<CR>", { desc = "Reload config" })
+
+
+vim.cmd([[
+let g:term_buf = 0
+let g:term_win = 0
+
+function! TermToggle(height)
+  if win_gotoid(g:term_win)
+    hide
+  else
+    botright new
+    exec "resize " . a:height
+    try
+      exec "buffer " . g:term_buf
+    catch
+      call termopen($SHELL, {"detach": 0})
+      let g:term_buf = bufnr("")
+      setlocal nonumber norelativenumber signcolumn=no
+    endtry
+    startinsert!
+    let g:term_win = win_getid()
+  endif
+endfunction
+
+nnoremap <A-t> :call TermToggle(12)<CR>
+inoremap <A-t> <Esc>:call TermToggle(12)<CR>
+tnoremap <A-t> <C-\><C-n>:call TermToggle(12)<CR>
+
+" Terminal go back to normal mode
+tnoremap <Esc> <C-\><C-n>
+inoremap :q! <C-\><C-n>:q!<CR>
+]])
+
 
 -- PLUGIN SETUP WITH LAZY.NVIM
 -- ============================
@@ -140,6 +206,13 @@ require("lazy").setup({
     end,
   },
 
+{
+    "OXY2DEV/markview.nvim",
+    lazy = false,
+
+    -- Completion for `blink.cmp`
+    -- dependencies = { "saghen/blink.cmp" },
+},
   -- File explorer
   {
     "nvim-tree/nvim-tree.lua",
@@ -165,6 +238,15 @@ require("lazy").setup({
       vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "Find buffers" })
       vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "Find help" })
     end,
+  },
+
+  {
+      "OXY2DEV/markview.nvim",
+      lazy = false,
+      config = function()
+        require("markview").setup({});
+        vim.keymap.set("n", "<leader>m", "<cmd>Markview toggle<CR>", { desc = "Toggle markdown preview" });
+      end,
   },
 
   -- Statusline
@@ -194,27 +276,62 @@ require("lazy").setup({
           remaining = "Normal",
         },
       })
-      vim.keymap.set("n", "<leader>dt", "<cmd>DuckyType<CR>", { desc = "Start DuckyType test" })
+      vim.keymap.set("n", "<leader>d", "<cmd>DuckyType<CR>", { desc = "Start DuckyType test" })
     end,
   },
-
-  -- Better syntax highlighting
-  {
-    "nvim-treesitter/nvim-treesitter",
-    build = ":TSUpdate",
+    
+{
+    "kylechui/nvim-surround",
+    version = "^3.0.0",
+    event = "VeryLazy",
     config = function()
-      require("nvim-treesitter.configs").setup({
-        ensure_installed = { "lua", "python", "javascript", "html", "css", "json", "yaml" },
+        require("nvim-surround").setup({})
+    end
+},
+
+{
+    "nvim-treesitter/nvim-treesitter",
+    build = ":TSUpdate",        -- keep parsers up-to-date
+    lazy = false,               -- always load on startup
+    config = function()
+      require("nvim-treesitter").setup({
+        ensure_installed = { "lua", "python", "cpp", "bash", "javascript", "html", "css", "json", "go"},
+        sync_install = false,
         auto_install = true,
-        highlight = {
-          enable = true,
-          additional_vim_regex_highlighting = false,
-        },
+
+        highlight = { enable = true },
         indent = { enable = true },
+
+        incremental_selection = {
+          enable = true,
+          keymaps = {
+            init_selection = "gnn",
+            node_incremental = "grn",
+            scope_incremental = "grc",
+            node_decremental = "grm",
+          },
+        },
       })
+
+      -- Treesitter folding
+      vim.opt.foldmethod = "expr"
+      vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+      vim.opt.foldenable = true
+      vim.opt.foldlevel = 99  -- start mostly unfolded
     end,
   },
-
+  
+    {
+      'HiPhish/rainbow-delimiters.nvim',
+      config = function()
+        vim.g.rainbow_delimiters = {
+          strategy = {
+            'global',
+            'local',
+          },
+        }
+      end
+    },
   {
     "windwp/nvim-autopairs",
     event = "InsertEnter",
@@ -245,7 +362,42 @@ require("lazy").setup({
       })
     end,
   },
-}, 
+
+  -- LSP
+  {
+    "williamboman/mason.nvim",
+    config = function()
+      require("mason").setup()
+    end,
+  },
+  {
+    "williamboman/mason-lspconfig.nvim",
+    dependencies = { "neovim/nvim-lspconfig" },
+    config = function()
+      require("mason-lspconfig").setup({
+        ensure_installed = { "pyright" },
+        handlers = {
+          function(server_name)
+            require("lspconfig")[server_name].setup({})
+          end,
+          pyright = function()
+            require("lspconfig").pyright.setup({
+              settings = {
+                python = {
+                  analysis = {
+                    autoSearchPaths = true,
+                    useLibraryCodeForTypes = true,
+                    diagnosticMode = "workspace",
+                  },
+                },
+              },
+            })
+          end,
+        },
+      })
+    end,
+  },
+},
     {
   -- Lazy.nvim configuration
   ui = {
