@@ -1,0 +1,67 @@
+{
+  "layer": "top",
+  "position": "top",
+  "modules-left": ["sway/workspaces"],
+  "modules-center": ["clock#time", "clock#date"],
+  "modules-right": ["bluetooth", "temperature", "pulseaudio", "sway/language", "network", "battery"],
+
+  "temperature": {
+  "format": "{temperatureC}°C | "
+  },
+
+  "clock#time": {
+    "interval": 1,
+    "format": "{:%H:%M:%S }",
+    "tooltip": false
+
+  },
+
+  "bluetooth": {
+	"format": "{icon} |",
+	//"format-alt": "Bluetooth: {status}",
+	"format-icons": {
+		"enabled": "BT Enabled",
+		"disabled": "BT Disabled"
+	},
+	"tooltip-format": "{status}",
+	"on-click": "blueman-manager"
+  },
+
+  "sway/language": {
+	"format": "{} |",
+	"min-length": 5,
+	"on-click": "swaymsg 'input * xkb_switch_layout next'",
+	"tooltip": false
+  },
+
+  "clock#date": {
+	"interval": 20,
+	"format": " {:%A,%e %b}",
+	"tooltip": false,
+	"on-click": "gnome-calendar"
+  },
+
+  "pulseaudio": {
+    "format": "{volume}% |",
+    "scroll-step": 1,
+    "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
+    "tooltip": false
+  },
+
+  "network": {
+    "interval": 5,
+    "format-wifi": "{essid} ({signalStrength}%) | ",
+    "format-ethernet": "{ifname} | ",
+    "format-disconnected": "No connection | ",
+    "format-alt": "{ipaddr}/{cidr} | ",
+    "on-click": "ghostty -e nmtui",
+    "tooltip": false
+  },
+
+  "battery": {
+    "interval": 10,
+    "format-time": "{H}:{M:02}",
+    "format": "{capacity}% ",
+    "tooltip": false
+  },
+}
