@@ -7,13 +7,15 @@ WIDTH=$(echo "$MONITOR_INFO" | jq -r '.width')
 HEIGHT=$(echo "$MONITOR_INFO" | jq -r '.height')
 REFRESH_RATE=$(echo "$MONITOR_INFO" | jq -r '.refreshRate')
 
-# Cycle: 1 → 1.2 → 1.4 → 1.6 → 1
+# Cycle: 1 → 1.2 → 1.4 → 1.6 → 2 → 3 → 1
 CURRENT_INT=$(awk -v s="$CURRENT_SCALE" 'BEGIN { printf "%.0f", s * 10 }')
 
 case "$CURRENT_INT" in
 10) NEW_SCALE=1.2 ;;
 12) NEW_SCALE=1.4 ;;
 14) NEW_SCALE=1.6 ;;
+16) NEW_SCALE=2 ;;
+20) NEW_SCALE=3 ;;
 *)  NEW_SCALE=1 ;;
 esac
 
