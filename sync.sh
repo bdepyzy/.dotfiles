@@ -12,7 +12,7 @@ cp --remove-destination ~/.tmux.conf "$DOTFILES/.tmux.conf"
 # Commit and push
 cd "$DOTFILES"
 git add -A
-git commit -m "sync: $(date '+%Y-%m-%d %H:%M')"
+git diff --cached --quiet || git commit -m "sync: $(date '+%Y-%m-%d %H:%M')"
 git push
 
 # Remove copies (git has them, no need to keep locally)
