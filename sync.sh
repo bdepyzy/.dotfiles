@@ -3,11 +3,12 @@ set -e
 DOTFILES="$HOME/.dotfiles"
 
 # Copy configs into dotfiles
+mkdir -p "$DOTFILES/hypr" "$DOTFILES/nvim" "$DOTFILES/fastfetch" "$DOTFILES/tmux"
 cp -r ~/.config/hypr        "$DOTFILES/hypr/hypr"
 cp -r ~/.config/nvim        "$DOTFILES/nvim/nvim"
 cp -r ~/.config/fastfetch   "$DOTFILES/fastfetch/fastfetch"
-cp --remove-destination ~/.zshrc    "$DOTFILES/.zshrc.omarchy"
 cp -r ~/.config/tmux        "$DOTFILES/tmux/tmux"
+cp ~/.zshrc                 "$DOTFILES/.zshrc.omarchy"
 
 # Commit and push
 cd "$DOTFILES"
