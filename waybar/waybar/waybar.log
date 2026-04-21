@@ -1,0 +1,12 @@
+[2025-07-12 09:23:00.400] [info] Using configuration file /home/do/.config/waybar/config
+[2025-07-12 09:23:00.401] [info] Using CSS file /home/do/.config/waybar/style.css
+
+** (waybar:4309): WARNING **: 09:23:00.875: gtk-layer-shell v0.7.0 may not work on GTK v3.24.33. If you experience crashes, check https://github.com/wmww/gtk-layer-shell/blob/master/compatibility.md
+
+(waybar:4309): GLib-GObject-WARNING **: 09:23:00.877: ../../../gobject/gsignal.c:2081: type 'GtkWindow' is already overridden for signal id '73'
+
+(waybar:4309): GLib-GObject-WARNING **: 09:23:00.877: ../../../gobject/gsignal.c:2081: type 'GtkWindow' is already overridden for signal id '72'
+[2025-07-12 09:23:00.911] [info] Bar configured (width: 1920, height: 34) for output: DP-2
+[2025-07-12 09:23:00.911] [info] Bar configured (width: 1920, height: 34) for output: eDP-1
+[2025-07-12 10:31:07.355] [info] Bar removed from output: DP-2
+[2025-07-12 10:31:13.411] [info] Bar configured (width: 1920, height: 34) for output: DP-2

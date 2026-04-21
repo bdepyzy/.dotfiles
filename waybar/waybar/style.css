@@ -1,0 +1,35 @@
+* {
+  font-family: JetBrainsMono, sans-serif;
+  font-size: 13px;
+  color: #ffffff;
+  background: #1e1e2e;
+}
+
+#clock {
+  color: #89dceb;
+}
+
+#battery {
+  color: green;
+}
+
+#bluetooth {
+    color: #7aa2f7;
+    margin-right: 8px;
+}
+
+#bluetooth.disabled {
+    color: #6c7086;
+}
+
+#bluetooth.off {
+    color: #f7768e;
+}
+
+#bluetooth.on {
+    color: #9ece6a;
+}
+
+#bluetooth.connected {
+    color: #73daca;
+}
