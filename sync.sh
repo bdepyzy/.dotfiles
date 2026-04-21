@@ -3,12 +3,16 @@ set -e
 DOTFILES="$HOME/.dotfiles"
 
 # Copy configs into dotfiles
-mkdir -p "$DOTFILES/hypr" "$DOTFILES/nvim" "$DOTFILES/fastfetch" "$DOTFILES/tmux"
-cp -r ~/.config/hypr        "$DOTFILES/hypr/hypr"
-cp -r ~/.config/nvim        "$DOTFILES/nvim/nvim"
-cp -r ~/.config/fastfetch   "$DOTFILES/fastfetch/fastfetch"
-cp -r ~/.config/tmux        "$DOTFILES/tmux/tmux"
+cp -r ~/.config/hypr        "$DOTFILES/hypr"
+cp -r ~/.config/nvim        "$DOTFILES/nvim"
+cp -r ~/.config/fastfetch   "$DOTFILES/fastfetch"
+cp -r ~/.config/tmux        "$DOTFILES/tmux"
 cp ~/.zshrc                 "$DOTFILES/.zshrc.omarchy"
+
+# Keep .tmux.conf.omarchy permanently if on carbon
+if [ "$(hostname)" = "carbon" ]; then
+    cp ~/.config/tmux/tmux.conf "$DOTFILES/.tmux.conf.omarchy"
+fi
 
 # Commit and push
 cd "$DOTFILES"
@@ -17,9 +21,6 @@ git diff --cached --quiet || git commit -m "sync: $(date '+%Y-%m-%d %H:%M')"
 git push
 
 # Remove copies (git has them, no need to keep locally)
-rm -rf "$DOTFILES/hypr/hypr"
-rm -rf "$DOTFILES/nvim/nvim"
-rm -rf "$DOTFILES/tmux/tmux"
-rm -rf "$DOTFILES/fastfetch/fastfetch"
+rm -rf "$DOTFILES/hypr" "$DOTFILES/nvim" "$DOTFILES/tmux" "$DOTFILES/fastfetch" "$DOTFILES/.zshrc.omarchy"
 
 echo "Done."
