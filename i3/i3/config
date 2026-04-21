@@ -159,6 +159,15 @@ bindsym $mod+r mode "resize"
 bar {
     status_command /usr/bin/i3blocks -c ~/.config/i3blocks/config
     position top
+    colors {
+        background #000000
+        statusline #ffffff
+        separator #666666
+        focused_workspace #00ff00 #000000
+        active_workspace #ffffff #000000
+        inactive_workspace #888888 #000000
+        urgent_workspace #ff0000 #000000
+    }
 }
 
 
@@ -166,3 +175,5 @@ bar {
 # exec --no-startup-id dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=i3
 
 bindsym $mod+Shift+n exec --no-startup-id /home/do/Desktop/screen.sh
+#exec --no-startup-id setxkbmap -layout us,ru
+#exec --no-startup-id setxkbmap -option grp:alt_shift_toggle,caps:escape

@@ -124,6 +124,17 @@ vim.keymap.set("n", "<leader>lw", function()
   print("Line wrap " .. (vim.opt.wrap:get() and "enabled" or "disabled"))
 end, { desc = "Toggle line wrap" })
 
+vim.keymap.set("n", "<leader>k", function()
+  vim.diagnostic.open_float()
+end, { desc = "Show line diagnostics" })
+
+-- Folding keybinds
+vim.keymap.set("n", "zc", "zc", { desc = "Close fold" })
+vim.keymap.set("n", "zo", "zo", { desc = "Open fold" })
+vim.keymap.set("n", "za", "za", { desc = "Toggle fold" })
+vim.keymap.set("n", "zR", "zR", { desc = "Open all folds" })
+vim.keymap.set("n", "zM", "zM", { desc = "Close all folds" })
+
 -- Quick config reload
 vim.keymap.set("n", "<leader>cr", "<cmd>source $MYVIMRC<CR>", { desc = "Reload config" })
 
@@ -302,31 +313,14 @@ require("lazy").setup({
         },
       })
 
-      -- optional: use treesitter for folding
+      -- Treesitter folding
       vim.opt.foldmethod = "expr"
-      vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
-      vim.opt.foldenable = false  -- start unfolded
+      vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+      vim.opt.foldenable = true
+      vim.opt.foldlevel = 99  -- start mostly unfolded
     end,
   },
   
-{
-  "neovim/nvim-lspconfig",
-  config = function()
-    -- Modern LSP setup using vim.lsp.config
-    vim.lsp.config("pyright", {
-      settings = {
-        python = {
-          analysis = {
-            autoSearchPaths = true,
-            useLibraryCodeForTypes = true,
-            diagnosticMode = "workspace",
-          },
-        },
-      },
-    })
-
-  end,
-},
     {
       'HiPhish/rainbow-delimiters.nvim',
       config = function()
@@ -368,7 +362,42 @@ require("lazy").setup({
       })
     end,
   },
-}, 
+
+  -- LSP
+  {
+    "williamboman/mason.nvim",
+    config = function()
+      require("mason").setup()
+    end,
+  },
+  {
+    "williamboman/mason-lspconfig.nvim",
+    dependencies = { "neovim/nvim-lspconfig" },
+    config = function()
+      require("mason-lspconfig").setup({
+        ensure_installed = { "pyright" },
+        handlers = {
+          function(server_name)
+            require("lspconfig")[server_name].setup({})
+          end,
+          pyright = function()
+            require("lspconfig").pyright.setup({
+              settings = {
+                python = {
+                  analysis = {
+                    autoSearchPaths = true,
+                    useLibraryCodeForTypes = true,
+                    diagnosticMode = "workspace",
+                  },
+                },
+              },
+            })
+          end,
+        },
+      })
+    end,
+  },
+},
     {
   -- Lazy.nvim configuration
   ui = {

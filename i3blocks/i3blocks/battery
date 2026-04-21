@@ -1,0 +1,26 @@
+#!/bin/bash
+BAT="/sys/class/power_supply/BAT0"
+if [ -d "$BAT" ]; then
+    CAPACITY=$(cat "$BAT/capacity" 2>/dev/null)
+    if [ -z "$CAPACITY" ]; then
+        echo "BAT N/A"
+        echo ""
+        echo "#888888"
+    elif [ "$CAPACITY" -lt 20 ]; then
+        echo "BAT $CAPACITY%"
+        echo ""
+        echo "#ff0000"
+    elif [ "$CAPACITY" -lt 50 ]; then
+        echo "BAT $CAPACITY%"
+        echo ""
+        echo "#ffff00"
+    else
+        echo "BAT $CAPACITY%"
+        echo ""
+        echo "#00ff00"
+    fi
+else
+    echo "BAT N/A"
+    echo ""
+    echo "#888888"
+fi
