@@ -294,7 +294,7 @@ require("lazy").setup({
     build = ":TSUpdate",        -- keep parsers up-to-date
     lazy = false,               -- always load on startup
     config = function()
-      require("nvim-treesitter.configs").setup({
+      require("nvim-treesitter").setup({
         ensure_installed = { "lua", "python", "cpp", "bash", "javascript", "html", "css", "json", "go"},
         sync_install = false,
         auto_install = true,
