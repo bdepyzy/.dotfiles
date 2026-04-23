@@ -11,6 +11,7 @@ cp -r ~/.config/tmux        "$DOTFILES/tmux" 2>/dev/null || true
 # Machine-specific configs
 if [ "$HOSTNAME" = "carbon" ]; then
     cp -r ~/.config/hypr    "$DOTFILES/hypr"
+    cp -r ~/.config/waybar  "$DOTFILES/waybar"
     cp ~/.zshrc             "$DOTFILES/.zshrc.omarchy"
     cp ~/.config/tmux/tmux.conf "$DOTFILES/.tmux.conf.omarchy"
 elif [ "$HOSTNAME" = "do" ] || [ "$HOSTNAME" = "ubuntui3" ]; then
@@ -30,7 +31,7 @@ git diff --cached --quiet || git commit -m "sync: $HOSTNAME $(date '+%Y-%m-%d %H
 git push
 
 # Remove copies (git has them, no need to keep locally)
-rm -rf "$DOTFILES/hypr" "$DOTFILES/nvim" "$DOTFILES/tmux" "$DOTFILES/fastfetch"
+rm -rf "$DOTFILES/hypr" "$DOTFILES/waybar" "$DOTFILES/nvim" "$DOTFILES/tmux" "$DOTFILES/fastfetch"
 rm -rf "$DOTFILES/kitty" "$DOTFILES/ghostty" "$DOTFILES/i3" "$DOTFILES/i3blocks" "$DOTFILES/waybar"
 rm -f "$DOTFILES/.zshrc.omarchy" "$DOTFILES/.zshrc.ubuntui3"
 rm -f "$DOTFILES/.tmux.conf.omarchy" "$DOTFILES/.tmux.conf.ubuntui3"
