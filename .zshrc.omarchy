@@ -43,6 +43,7 @@ alias opa="omarchy-pkg-add"
 # Aliases — tmux
 alias tat="tmux attach-session -t"
 alias trt="tmux kill-session -t"
+alias tl="tmux ls"
 
 # Use plain ls instead of eza
 unalias ls 2>/dev/null
