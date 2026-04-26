@@ -16,7 +16,7 @@ for addr in "${WINDOWS[@]}"; do
 done
 
 if [ -s "$STATE_FILE" ]; then
-    sleep 0.1
+    sleep 0.15
     mapfile -t RESTORE_WINDOWS < <(jq -r '.[] | [.address, .size[0], .size[1]] | @tsv' "$STATE_FILE")
 
     for row in "${RESTORE_WINDOWS[@]}"; do
@@ -26,9 +26,9 @@ if [ -s "$STATE_FILE" ]; then
             hyprctl dispatch resizewindowpixel "exact $width $height,address:$addr"
         fi
     done
-
-    rm -f "$STATE_FILE"
 fi
+
+rm -f "$STATE_FILE"
 
 if [ -n "$ACTIVE" ]; then
     hyprctl dispatch focuswindow "address:$ACTIVE"
