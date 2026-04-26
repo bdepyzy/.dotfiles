@@ -18,8 +18,9 @@ gtk-toolbar-style = flat
 cursor-style = "block"
 cursor-style-blink = false
 
-# Use zsh as default shell
+# Use zsh as default shell, always starting at home
 command = /usr/bin/zsh
+working-directory = home
 
 # Cursor styling + SSH session terminfo
 # (all shell integration options must be passed together)

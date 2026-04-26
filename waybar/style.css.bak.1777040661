@@ -221,16 +221,6 @@ tooltip label {
   color: @foreground;
 }
 
-/* Submap indicator */
-#submap {
-  margin: 0 10px;
-  padding: 0 8px;
-  color: #f7768e;
-  font-weight: bold;
-  border: 1px solid #f7768e;
-  border-radius: 4px;
-}
-
 /* Hidden class for indicators */
 .hidden {
   opacity: 0;

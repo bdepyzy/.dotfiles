@@ -74,11 +74,3 @@ wait_for_class "discord"
 wait_for_class "telegram"
 sleep 1
 group_windows 4 "discord" "telegram"
-
-# Workspace 5: AI apps
-wait_for_class "deepseek"
-wait_for_class "chatgpt"
-wait_for_class "claude"
-wait_for_class "kimi"
-sleep 1
-group_windows 5 "deepseek" "chatgpt" "claude" "kimi"

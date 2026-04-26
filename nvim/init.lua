@@ -173,6 +173,8 @@ inoremap :q! <C-\><C-n>:q!<CR>
 
 -- PLUGIN SETUP WITH LAZY.NVIM
 -- ============================
+-- Skip plugins entirely when running inside VSCode
+if vim.g.vscode then return end
 
 -- Bootstrap lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
