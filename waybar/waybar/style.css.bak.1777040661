@@ -47,31 +47,17 @@ window#waybar {
   color: @foreground;
   opacity: 0.4;
   transition: opacity 0.2s ease;
-  background: transparent;
-  background-image: none;
-  background-color: transparent;
-  box-shadow: none;
 }
 
 #workspaces button:hover {
   opacity: 0.8;
-  background: transparent;
-  background-image: none;
-  background-color: transparent;
-  box-shadow: none;
+  background-color: rgba(221, 247, 255, 0.06);
 }
 
-#workspaces button.active,
-#workspaces button.focused,
-#workspaces button.visible,
-#workspaces button:checked {
+#workspaces button.active {
   opacity: 1;
   font-weight: bold;
   color: #7aa2f7;
-  background: transparent;
-  background-image: none;
-  background-color: transparent;
-  box-shadow: none;
 }
 
 #workspaces button.empty {
@@ -117,17 +103,6 @@ window#waybar {
   min-width: 14px;
   margin: 0 8px;
   font-size: 11px;
-}
-
-#custom-counterstrike-player {
-  min-width: 38px;
-  min-height: 38px;
-  margin: 0 5px;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: 36px 36px;
-  background-image: url("icons/half-life-counterstrike-front.svg");
-  opacity: 1;
 }
 
 /* Tray */
@@ -244,16 +219,6 @@ tooltip {
 
 tooltip label {
   color: @foreground;
-}
-
-/* Submap indicator */
-#submap {
-  margin: 0 10px;
-  padding: 0 8px;
-  color: #f7768e;
-  font-weight: bold;
-  border: 1px solid #f7768e;
-  border-radius: 4px;
 }
 
 /* Hidden class for indicators */

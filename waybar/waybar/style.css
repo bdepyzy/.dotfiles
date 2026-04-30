@@ -120,13 +120,13 @@ window#waybar {
 }
 
 #custom-counterstrike-player {
-  min-width: 38px;
+  min-width: 54px;
   min-height: 38px;
   margin: 0 5px;
   background-position: center;
   background-repeat: no-repeat;
-  background-size: 36px 36px;
-  background-image: url("icons/half-life-counterstrike-front.svg");
+  background-size: 54px 38px;
+  background-image: url("icons/counterstrike-player.png");
   opacity: 1;
 }
 

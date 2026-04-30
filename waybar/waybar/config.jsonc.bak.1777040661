@@ -2,16 +2,15 @@
   "reload_style_on_change": true,
   "layer": "top",
   "position": "top",
-  "height": 44,
+  "height": 30,
   "spacing": 0,
 
   "modules-left": ["custom/omarchy", "hyprland/workspaces"],
-  "modules-center": ["clock#time", "clock#date", "hyprland/submap"],
+  "modules-center": ["clock#time", "clock#date"],
   "modules-right": [
     "custom/screenrecording-indicator",
     "custom/idle-indicator",
     "custom/notification-silencing-indicator",
-    "custom/counterstrike-player",
     "custom/update",
     "group/tray-expander",
     "hyprland/language",
@@ -33,7 +32,13 @@
 
   "hyprland/workspaces": {
     "on-click": "activate",
-    "format": "{name}",
+    "format": "{icon}",
+    "format-icons": {
+      "default": "",
+      "1": "1", "2": "2", "3": "3", "4": "4", "5": "5",
+      "6": "6", "7": "7", "8": "8", "9": "9", "10": "10",
+      "active": "󱓻"
+    },
   },
 
   "clock#time": {
@@ -64,9 +69,8 @@
 
   "cpu": {
     "interval": 5,
-    "format": "CPU {usage}%",
-    "tooltip": true,
-    "tooltip-format": "CPU occupied: {usage}%\nFreq: {avg_frequency:.2f}GHz",
+    "format": "󰻠 {usage}% {avg_frequency:.1f}GHz",
+    "tooltip-format": "Usage: {usage}%\nFreq: {avg_frequency:.2f}GHz",
     "on-click": "omarchy-launch-or-focus-tui btop",
     "on-click-right": "alacritty"
   },
@@ -88,7 +92,7 @@
     },
     "scroll-step": 5,
     "on-click": "pamixer -t",
-    "on-click-right": "pavucontrol",
+    "on-click-right": "omarchy-launch-audio",
     "tooltip": false
   },
 
@@ -112,7 +116,7 @@
     "tooltip-format-wifi": "{essid} ({signalStrength}%)",
     "tooltip-format-ethernet": "Connected",
     "tooltip-format-disconnected": "Disconnected",
-    "on-click": "xdg-terminal-exec nmtui"
+    "on-click": "nm-applet --indicator"
   },
 
   "battery": {
@@ -129,11 +133,6 @@
     "tooltip-format-charging": "{power:>1.0f}W  {time}",
     "on-click": "omarchy-menu power",
     "states": { "warning": 20, "critical": 10 }
-  },
-
-  "hyprland/submap": {
-    "format": "  {}",
-    "tooltip": false
   },
 
   "custom/update": {
@@ -164,12 +163,6 @@
     "exec": "$OMARCHY_PATH/default/waybar/indicators/notification-silencing.sh",
     "signal": 10,
     "return-type": "json"
-  },
-
-  "custom/counterstrike-player": {
-    "format": " ",
-    "tooltip-format": "Half-Life: Counter-Strike",
-    "on-click": "notify-send 'Counter-Strike' 'Player alert'"
   },
 
   "group/tray-expander": {
