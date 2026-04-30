@@ -1,0 +1,28 @@
+[features]
+codex_hooks = true
+
+[[hooks.PermissionRequest]]
+matcher = "*"
+
+[[hooks.PermissionRequest.hooks]]
+type = "command"
+command = "/home/bdepyzy/.codex/hooks/cs2-permission-reaction.sh"
+timeout = 3
+
+[projects."/home/bdepyzy/robotics/s26_robotics"]
+trust_level = "trusted"
+
+[projects."/home/bdepyzy/digitalmoney/arbitrage"]
+trust_level = "trusted"
+
+[projects."/home/bdepyzy"]
+trust_level = "trusted"
+
+[projects."/home/bdepyzy/Desktop/school/hardware_security"]
+trust_level = "trusted"
+
+[plugins."github@openai-curated"]
+enabled = true
+
+[tui.model_availability_nux]
+"gpt-5.5" = 4
