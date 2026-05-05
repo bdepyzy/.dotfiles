@@ -39,4 +39,6 @@ git add -A
 git diff --cached --quiet || git commit -m "sync: $HOSTNAME $(date '+%Y-%m-%d %H:%M')"
 git push
 
+rm -rf nvim hypr systemd tmux waybar ghostty fastfetch
+
 echo "Done."
