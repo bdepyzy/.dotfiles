@@ -156,6 +156,20 @@ window#waybar {
   opacity: 0.9;
 }
 
+/* VPN */
+#custom-vpn {
+  margin: 0 0 0 28px;
+  min-width: 48px;
+  font-size: 13px;
+  font-weight: bold;
+  color: #73daca;
+}
+
+#custom-vpn.hidden {
+  margin: 0;
+  min-width: 0;
+}
+
 /* System info modules */
 #temperature,
 #cpu,

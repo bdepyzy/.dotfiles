@@ -5,7 +5,7 @@
   "height": 44,
   "spacing": 0,
 
-  "modules-left": ["custom/omarchy", "hyprland/workspaces"],
+  "modules-left": ["custom/omarchy", "hyprland/workspaces", "custom/vpn"],
   "modules-center": ["clock#time", "clock#date", "hyprland/submap"],
   "modules-right": [
     "custom/screenrecording-indicator",
@@ -54,6 +54,14 @@
     "format-en": "🇺🇸",
     "format-ru": "🇷🇺",
     "tooltip": false
+  },
+
+  "custom/vpn": {
+    "exec": "~/.config/waybar/scripts/vpn-flag.sh",
+    "interval": 2,
+    "return-type": "json",
+    "on-click": "xdg-terminal-exec vpn status",
+    "tooltip": true
   },
 
   "custom/temperature": {
