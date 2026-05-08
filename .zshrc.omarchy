@@ -59,6 +59,7 @@ gacp(){ git add . && git commit -m "${1:?commit message required}" && git push; 
 
 . "$HOME/.local/share/../bin/env"
 
+export DIRENV_LOG_FORMAT=""
 eval "$(direnv hook zsh)"
 export PATH=/opt/cuda/bin:$PATH
 export LD_LIBRARY_PATH=/opt/cuda/lib64:$LD_LIBRARY_PATH

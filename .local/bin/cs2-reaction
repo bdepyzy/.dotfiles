@@ -14,8 +14,10 @@ fi
 if [[ -n "${CS2_REACTION_SOUND:-}" && -f "$CS2_REACTION_SOUND" ]]; then
   sound="$CS2_REACTION_SOUND"
 else
-  sound="$(find "$sound_dir" -type f -name '*.wav' | shuf -n 1)"
-  if [[ -z "$sound" && -f "$default_sound" ]]; then
+  sounds=("$sound_dir"/*.wav)
+  if [[ -f "${sounds[0]}" ]]; then
+    sound="${sounds[$((RANDOM % ${#sounds[@]}))]}"
+  elif [[ -f "$default_sound" ]]; then
     sound="$default_sound"
   fi
 fi

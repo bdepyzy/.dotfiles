@@ -9,6 +9,12 @@ type = "command"
 command = "/home/bdepyzy/.codex/hooks/cs2-permission-reaction.sh"
 timeout = 3
 
+[hooks.state]
+
+[hooks.state."/home/bdepyzy/.codex/config.toml:permission_request:0:0"]
+enabled = true
+trusted_hash = "sha256:08347b40479f57e868be1238589f795b98fa7964184ea81f96ae7b4f0a7659bb"
+
 [projects."/home/bdepyzy/robotics/s26_robotics"]
 trust_level = "trusted"
 
@@ -19,6 +25,9 @@ trust_level = "trusted"
 trust_level = "trusted"
 
 [projects."/home/bdepyzy/Desktop/school/hardware_security"]
+trust_level = "trusted"
+
+[projects."/home/bdepyzy/work/companies/RensselaerTrading"]
 trust_level = "trusted"
 
 [plugins."github@openai-curated"]

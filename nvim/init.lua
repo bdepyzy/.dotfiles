@@ -118,6 +118,12 @@ vim.keymap.set("n", "<leader>Y", '"+Y', { desc = "Copy line to system clipboard"
 vim.keymap.set("n", "<leader>p", '"+p', { desc = "Paste from system clipboard" })
 vim.keymap.set("n", "<leader>P", '"+P', { desc = "Paste before from system clipboard" })
 
+-- Resize splits with leader + hjkl
+vim.keymap.set("n", "<leader>h", ":vertical resize -2<CR>", { silent = true, desc = "Shrink split width" })
+vim.keymap.set("n", "<leader>l", ":vertical resize +2<CR>", { silent = true, desc = "Grow split width" })
+vim.keymap.set("n", "<leader>j", ":resize -2<CR>", { silent = true, desc = "Shrink split height" })
+vim.keymap.set("n", "<leader>k", ":resize +2<CR>", { silent = true, desc = "Grow split height" })
+
 -- Toggle line wrapping
 vim.keymap.set("n", "<leader>lw", function()
   vim.opt.wrap = not vim.opt.wrap:get()
